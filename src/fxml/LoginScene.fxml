@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="250.0" style="-fx-border-color: #00918c;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+   <children>
+      <BorderPane layoutX="-1.0" prefHeight="502.0" prefWidth="250.0">
+         <top>
+            <ImageView fitHeight="157.0" fitWidth="247.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../resources/Logo.png" />
+               </image>
+            </ImageView>
+         </top>
+         <center>
+            <VBox prefHeight="245.0" prefWidth="210.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="250.0" style="-fx-alignment: center;" text="Login" textAlignment="CENTER" textFill="#00918c" />
+                  <VBox prefHeight="10.0" prefWidth="210.0" />
+                  <TextField fx:id="textfield_username" alignment="CENTER" maxWidth="225.0" prefHeight="25.0" prefWidth="225.0" promptText="Username" style="-fx-max-width: 210;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></TextField>
+                  <VBox prefHeight="9.0" prefWidth="210.0" />
+                  <PasswordField fx:id="textfield_password" alignment="CENTER" promptText="Password" />
+                  <VBox prefHeight="22.0" prefWidth="210.0" />
+                  <HBox prefHeight="63.0" prefWidth="210.0">
+                     <children>
+                        <CheckBox fx:id="checkbox_remember" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="213.0" text="Remember ID" textAlignment="RIGHT" textFill="#00918c" />
+                        <Button fx:id="button_login" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="161.0" style="-fx-background-radius: 5px; -fx-border-radius: 5px;" text="Submit" textFill="#00918c" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="label_notify" alignment="CENTER" prefHeight="31.0" prefWidth="210.0" textAlignment="CENTER" textFill="#f22222" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
+         </center>
+         <bottom>
+            <Label fx:id="label_forgetpassword" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="88.0" text="Forget Password" textAlignment="CENTER" textFill="#00918c" textOverrun="CLIP" underline="true" BorderPane.alignment="CENTER" />
+         </bottom>
+         <left>
+            <HBox prefHeight="315.0" prefWidth="20.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <HBox prefHeight="315.0" prefWidth="20.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>
