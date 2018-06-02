@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-border-color: #00918c;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controller.ShellController">
+   <children>
+      <TabPane prefHeight="650.0" prefWidth="1000.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Session 1">
+               <content>
+                  <TabPane prefHeight="650.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="Explorer">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TreeView fx:id="treeview_disk" prefHeight="605.0" prefWidth="252.0" />
+                                    <TableView layoutX="252.0" prefHeight="605.0" prefWidth="749.0">
+                                      <columns>
+                                        <TableColumn maxWidth="500.0" minWidth="200.0" prefWidth="389.0" text="Name" />
+                                        <TableColumn maxWidth="150.0" prefWidth="150.0" text="Date modified" />
+                                          <TableColumn maxWidth="150.0" prefWidth="90.0" text="Type" />
+                                          <TableColumn maxWidth="150.0" prefWidth="90.0" text="Size" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Database">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TreeView fx:id="treeview_disk1" prefHeight="605.0" prefWidth="252.0" />
+                                    <TableView layoutX="252.0" prefHeight="605.0" prefWidth="749.0">
+                                       <columns>
+                                          <TableColumn maxWidth="500.0" minWidth="200.0" prefWidth="419.0" text="Name" />
+                                          <TableColumn maxWidth="150.0" prefWidth="150.0" text="Date modified" />
+                                          <TableColumn maxWidth="150.0" prefWidth="90.0" text="Type" />
+                                          <TableColumn maxWidth="150.0" prefWidth="90.0" text="Size" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+               </content>
+          </Tab>
+          <Tab text="Session 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

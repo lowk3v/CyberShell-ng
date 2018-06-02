@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="250.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="25.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="250.0" style="-fx-alignment: center;" text="Create New User" textAlignment="CENTER" textFill="#00918c" />
+            <TextField fx:id="textfield_username" alignment="CENTER" maxWidth="225.0" prefHeight="25.0" prefWidth="225.0" promptText="Username" style="-fx-max-width: 210;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </TextField>
+            <PasswordField fx:id="textfield_password" alignment="CENTER" promptText="Password">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </PasswordField>
+            <PasswordField fx:id="textfield_password1" alignment="CENTER" layoutX="10.0" layoutY="35.0" promptText="Re-type Password">
+               <VBox.margin>
+                  <Insets bottom="15.0" top="5.0" />
+               </VBox.margin>
+            </PasswordField>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="button_login" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" style="-fx-background-radius: 5px; -fx-border-radius: 5px;" text="Cancel" textAlignment="RIGHT" textFill="#00918c" />
+                  <Button fx:id="button_login1" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" style="-fx-background-radius: 5px; -fx-border-radius: 5px;" text="Submit" textAlignment="RIGHT" textFill="#008f88">
+                     <HBox.margin>
+                        <Insets left="60.0" />
+                     </HBox.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
