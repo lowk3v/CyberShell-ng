@@ -88,6 +88,31 @@ public class TargetModel extends Model{
 		}
 		return list;
 	}
+	
+	public TargetModel getTargetById(String id){
+		PreparedStatement ps = null;
+		Connection conn = getConnection();
+		TargetModel tm = new TargetModel();
+		String sql = "SELECT * FROM Targets WHERE id = ?";
+		try{
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			tm.setId(rs.getInt("id"));
+			tm.setDb_connection(rs.getString("db_connection"));
+			tm.setDescription(rs.getString("description"));
+			tm.setLink(rs.getString("link"));
+			tm.setName(rs.getString("name"));
+			tm.setPassword(rs.getString("password"));
+			tm.setProject_id(rs.getInt("project_id"));
+			conn.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return tm;
+	}
+	
 	/*
 	 * Getters & Setters
 	 */

@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-border-color: #00918c;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controller.ShellController">
+<AnchorPane fx:id="anchorpane_shellmanager" prefHeight="650.0" prefWidth="1000.0" style="-fx-border-color: #00918c;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ShellController">
    <children>
-      <TabPane prefHeight="650.0" prefWidth="1000.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="650.0" prefWidth="1000.0" side="LEFT">
         <tabs>
           <Tab text="Session 1">
                <content>
@@ -19,8 +18,8 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TreeView fx:id="treeview_disk" prefHeight="605.0" prefWidth="252.0" />
-                                    <TableView layoutX="252.0" prefHeight="605.0" prefWidth="749.0">
+                                    <TreeView fx:id="treeview_disk" prefHeight="623.0" prefWidth="252.0" />
+                                    <TableView layoutX="252.0" prefHeight="622.0" prefWidth="749.0">
                                       <columns>
                                         <TableColumn maxWidth="500.0" minWidth="200.0" prefWidth="389.0" text="Name" />
                                         <TableColumn maxWidth="150.0" prefWidth="150.0" text="Date modified" />
@@ -36,7 +35,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TreeView fx:id="treeview_disk1" prefHeight="605.0" prefWidth="252.0" />
+                                    <TreeView fx:id="treeview_database" prefHeight="605.0" prefWidth="252.0" />
                                     <TableView layoutX="252.0" prefHeight="605.0" prefWidth="749.0">
                                        <columns>
                                           <TableColumn maxWidth="500.0" minWidth="200.0" prefWidth="419.0" text="Name" />
