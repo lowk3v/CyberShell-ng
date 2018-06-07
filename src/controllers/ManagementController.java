@@ -3,8 +3,6 @@ package controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import fxml.ShellView;
@@ -15,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Side;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -40,7 +37,7 @@ import models.TargetModel;
 public class ManagementController implements Initializable{
 	private boolean isOpenWindowShell = false;
 	@FXML
-	private MenuItem menuitem_addProject = new MenuItem();
+	private MenuItem menuitem_addProject;
 	@FXML
 	private MenuItem menuitem_addTarget;
 
@@ -62,16 +59,15 @@ public class ManagementController implements Initializable{
 		public void handle(MouseEvent event) {
 			if (MouseEvent.MOUSE_CLICKED != null && event.getClickCount() == 2){
 				// Initial tab session of current click
+				ShellView shell_view = new ShellView();
 				String target_id = ((HBox)event.getSource()).getId();
-				TargetModel target = new TargetModel().getTargetById(target_id);
-				Tab tab_session = new ShellView().create_tab_session(target);
+				Tab tab_session = shell_view.create_tab_session(target_id);
 				// Open windows shell manager if don't exist
 				if (! isOpenWindowShell){
 					isOpenWindowShell = true;
-					tabpane = new ShellView().create_tabpane_session(tab_session);
-					tabpane.setTabMinWidth(100);
+					tabpane = shell_view.create_tabpane_session(tab_session);
 					shellmanager = new AnchorPane(tabpane);
-					stage = new ShellView().create_stage(shellmanager);
+					stage = shell_view.create_stage(shellmanager);
 				}else{
 					tabpane.getTabs().add(tab_session);
 				}

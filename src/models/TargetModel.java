@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class TargetModel extends Model{
 	private int id, project_id;
-	private String name, password, db_connection, link, description;
+	private String name, password, db_connection, url, description, os, program_lang;
 	
 	/*
 	 * [INSERT] insert target in to Targets table
@@ -33,8 +33,8 @@ public class TargetModel extends Model{
 	 * * True if success
 	 * * Otherwise, false
 	 */
-	public boolean addTarget(String name, String link, String password, String description, int project_id,
-							String db_connection, String dbserver, String dbuser, String dbpass){
+	public boolean addTarget(String name, String url, String password, String description, int project_id,
+							String db_connection, String dbserver, String dbuser, String dbpass, String os, String program_lang){
 		if (! db_connection.isEmpty()){
 			dbserver = dbuser = dbpass = "";
 		}else{
@@ -42,16 +42,18 @@ public class TargetModel extends Model{
 		}
 		PreparedStatement ps = null;
 		Connection conn = getConnection();
-		String sql = "INSERT INTO Targets(name, link, password, db_connection, description, project_id, created_at, updated_at) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, current_timestamp, current_timestamp)";
+		String sql = "INSERT INTO Targets(name, url, password, db_connection, description, project_id, os, program_lang, created_at, updated_at) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, current_timestamp)";
 		try{
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
-			ps.setString(2, link);
+			ps.setString(2, url);
 			ps.setString(3, password);
 			ps.setString(4, db_connection);
 			ps.setString(5, description);
 			ps.setInt(6, project_id);
+			ps.setString(7, os);
+			ps.setString(8, program_lang);
 			ps.executeUpdate();
 			conn.close();
 			return true;
@@ -88,7 +90,13 @@ public class TargetModel extends Model{
 		}
 		return list;
 	}
-	
+	/*
+	 * [SELECT] Get all attributes of taget
+	 * PARAMETER:
+	 * * id: identify of target
+	 * RETURN:
+	 * * A target model object
+	 */
 	public TargetModel getTargetById(String id){
 		PreparedStatement ps = null;
 		Connection conn = getConnection();
@@ -102,7 +110,7 @@ public class TargetModel extends Model{
 			tm.setId(rs.getInt("id"));
 			tm.setDb_connection(rs.getString("db_connection"));
 			tm.setDescription(rs.getString("description"));
-			tm.setLink(rs.getString("link"));
+			tm.setUrl(rs.getString("url"));
 			tm.setName(rs.getString("name"));
 			tm.setPassword(rs.getString("password"));
 			tm.setProject_id(rs.getInt("project_id"));
@@ -146,11 +154,11 @@ public class TargetModel extends Model{
 	public void setDb_connection(String db_connection) {
 		this.db_connection = db_connection;
 	}
-	public String getLink() {
-		return link;
+	public String getUrl() {
+		return url;
 	}
-	public void setLink(String link) {
-		this.link = link;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	public String getDescription() {
 		return description;
@@ -158,5 +166,28 @@ public class TargetModel extends Model{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+	/**
+	 * @return the os
+	 */
+	public String getOs() {
+		return os;
+	}
+	/**
+	 * @param os the os to set
+	 */
+	public void setOs(String os) {
+		this.os = os;
+	}
+	/**
+	 * @return the lang
+	 */
+	public String getProgram_lang() {
+		return program_lang;
+	}
+	/**
+	 * @param lang the lang to set
+	 */
+	public void setProgram_lang(String program_lang) {
+		this.program_lang = program_lang;
+	}
 }

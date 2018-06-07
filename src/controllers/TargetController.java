@@ -78,7 +78,7 @@ public class TargetController implements Initializable{
     			os = item.getText();
     		}
     	});
-    	// Get programing languages
+    	// Get programming languages
     	menubutton_lang.getItems().forEach((lang)->{
     		if (lang.getStyleClass().contains("selected")){
     			program_lang = lang.getText();
@@ -100,7 +100,9 @@ public class TargetController implements Initializable{
 				textfield_ConnectionStr.getText().trim(),// connection str
 				textfield_ServerName.getText().trim(),	// DB server
 				textfield_DBUser.getText().trim(), 		// DB user
-				textfield_DBPass.getText().trim()		// DB pass
+				textfield_DBPass.getText().trim(),		// DB pass
+				os,										// Operating system 
+				program_lang							// programming languages
 			);
     	// Check textfield is valid
     	if (valid_textfield() && isSuccess && project_id != 0){
