@@ -8,13 +8,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import controllers.ShellController;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -46,7 +49,7 @@ public class ShellView {
 		tab.setId("session-" + target.getId());
 		tab.setContent(tabpane_section);
 		// Call controller as threading
-		ShellController shell_ctrl = new ShellController(target_id);
+		ShellController shell_ctrl = new ShellController(target_id, tab);
 		shell_ctrl.start();
 		return tab;
 	}
@@ -112,10 +115,10 @@ public class ShellView {
 	/*
 	 * 
 	 */
-	public void create_button(String title) {
-		Button bt = new Button();
-		bt.setText(title);
-		bt.setStyle("-fx-border-color: #00918c");
-		bt.setTextFill(Paint.valueOf("#00818c"));
+	public void create_anchorpane(Node node) {
+		AnchorPane ap = new AnchorPane(node);
+	}
+	
+	public void create_treeview() {
 	}
 }

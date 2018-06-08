@@ -4,11 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.stage.Popup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import utilities.MyScreen;
+import utilities.PopupUtils;
 
 public class Main extends Application {
 	@Override
@@ -24,7 +23,7 @@ public class Main extends Application {
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
-		}
+		}		
 	}
 	
 	public static void main(String[] args) {

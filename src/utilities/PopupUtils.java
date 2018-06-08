@@ -3,22 +3,32 @@
  */
 package utilities;
 
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogEvent;
 
 /**
  * @author kevinlpd
  *
  */
 public class PopupUtils {
-	public void display() {
-		
+	
+	private Alert alert;
+	private boolean isClose = false;
+	private AlertType type;
+	
+	public PopupUtils(AlertType type, String message) {
+		this.type = type;
+				
+		Platform.runLater(()->{
+			alert = new Alert(type);
+			alert.setHeaderText(null);
+			alert.setContentText(message);
+			alert.setTitle("Popup");
+			alert.show();
+		});
 	}
 }

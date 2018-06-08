@@ -8,6 +8,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import models.TargetModel;
 import utilities.PopupUtils;
 
@@ -17,9 +21,11 @@ import utilities.PopupUtils;
  */
 public class ShellController extends Thread{
 	private TargetModel target;
+	private Tab tab_session;
 
-	public ShellController(String id){
+	public ShellController(String id, Tab tab_session){
 		this.target = new TargetModel().getTargetById(id);
+		this.tab_session = tab_session;
 	}
 	
 	@Override
@@ -31,23 +37,35 @@ public class ShellController extends Thread{
 	public void sendPost() {
 		
 	}
-	
-	public void sendGet() {
+	/*
+	 * Send HTTP request using method GET
+	 * RETURN: 
+	 * * HttpURLConnnection
+	 */
+	public HttpURLConnection sendGet() {
 		URL url;
+		HttpURLConnection con = null;
 		try {
 			url = new URL(this.target.getUrl());
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
-			System.out.print(con.getResponseCode());
 			con.disconnect();
 		} catch (MalformedURLException e) {
-			System.out.print("URL is wrong");
-			//e.printStackTrace();
+			new PopupUtils(AlertType.ERROR, "Url is wrong");
+			this.exit();
 		} catch (IOException e) {
-			//e.printStackTrace();
-			System.out.print("Connect timed out");
+			new PopupUtils(AlertType.ERROR, "Request time out");
+			this.exit();
 		}
+		return con;
 		
+	}
+	/*
+	 * Happeneds to be the current thread, This will temination it
+	 */
+	public void exit() {
+		Thread.currentThread().interrupt();
+		tab_session.getTabPane().getTabs().remove(tab_session);
 	}
 	
 }
