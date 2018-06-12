@@ -6,19 +6,27 @@ package fxml;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Observable;
 
 import controllers.ShellController;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import models.TargetModel;
@@ -30,29 +38,6 @@ import utilities.MyScreen;
  */
 public class ShellView {
 	
-	/*
-	 * [INITIALIZE] Create tab session for each shell
-	 * PARAMETER:
-	 * * title: title of tab
-	 * RETURN:
-	 * * A object of tab
-	 */
-	public Tab create_tab_session(String target_id){
-		TargetModel target = new TargetModel().getTargetById(target_id);
-		// Create tab
-		Tab tab_explorer = this.create_tab("Explorer");
-		Tab tab_database = this.create_tab("Database");
-		TabPane tabpane_section = this.create_tabpane(Arrays.asList(tab_explorer, tab_database));		
-		// Session tab
-		Tab tab = new Tab(target.getName());
-		tab.setClosable(true);	
-		tab.setId("session-" + target.getId());
-		tab.setContent(tabpane_section);
-		// Call controller as threading
-		ShellController shell_ctrl = new ShellController(target_id, tab);
-		shell_ctrl.start();
-		return tab;
-	}
 	/*
 	 * Create new windows manage shell
 	 * PARAMETER:
@@ -67,28 +52,43 @@ public class ShellView {
 		stage.setX(new MyScreen().getPosition().get(0) + 310);
 		stage.setY(new MyScreen().getPosition().get(1));
 		return stage;
-	}
+	}	
 	/*
-	 * Create tabpane for each session shell
+	 * Create tab pane for each session shell
 	 * PARAMETERS:
 	 * * tab: for add into
 	 * RETURN:
-	 * * A object of tabpane with children are tabs
+	 * * A object of tab pane with children are tabs
 	 */
-	public TabPane create_tabpane_session(Tab tab){
-		TabPane tabpane  = new TabPane(tab);
+	public TabPane create_tabpane_session(){
+		TabPane tabpane  = new TabPane();
 		tabpane.setSide(Side.TOP);
 		tabpane.setPrefWidth(1000);
 		tabpane.setPrefHeight(650);
 		tabpane.setTabMinWidth(100);
 		return tabpane;
+	}	
+	/*
+	 * Create tab session for each shell
+	 * PARAMETER:
+	 * * title: title of tab
+	 * RETURN:
+	 * * A object of tab
+	 */
+	public Tab create_tab_session(String target_id, TabPane tp){
+		TargetModel target = new TargetModel().getTargetById(target_id);
+		Tab tab = new Tab(target.getName());
+		tab.setClosable(true);	
+		tab.setId("session-" + target.getId());
+		tab.setContent(tp);
+		return tab;
 	}
 	/*
-	 * Create tabpane for each feature: explorer, database, ...
+	 * Create sub-tab pane for each feature: explorer, database, ...
 	 * PARAMETER:
 	 * * tabs: list for add into
 	 * RETURN:
-	 * * A tabpane object 
+	 * * A tab pane object 
 	 */
 	public TabPane create_tabpane(List<Tab> tabs){
 		TabPane tabpane  = new TabPane();
@@ -98,27 +98,74 @@ public class ShellView {
 		tabpane.setSide(Side.LEFT);
 		tabpane.setPrefWidth(1000);
 		tabpane.setPrefHeight(650);
-		tabpane.setTabMinWidth((650 / tabs.size()) - 35);
+		tabpane.setTabMinWidth((650 / tabs.size()));
 		return tabpane;
 	}
 	/*
-	 * Create a tab display in tabpane
+	 * Create a sub-tab display in tab pane session
 	 * PARAMETER:
 	 * * name: is text display in tab
 	 * RETURN:
 	 * * A Tab object
 	 */
-	public Tab create_tab(String name){
+	public Tab create_tab(String name, AnchorPane ap){
 		Tab t = new Tab(name);
+		t.setClosable(false);
+		t.setContent(ap);
 		return t;
 	}
 	/*
 	 * 
 	 */
-	public void create_anchorpane(Node node) {
-		AnchorPane ap = new AnchorPane(node);
+	public AnchorPane create_anchorpane(List<Node> item_list) {
+		AnchorPane ap = new AnchorPane();
+		for (Node item  : item_list) {
+			ap.getChildren().add(item);
+		}		
+		return ap;
+	}
+	/*
+	 * 
+	 */
+	public TreeView<String> create_treeview() {
+		TreeView<String> tv = new TreeView<>();
+		tv.setPrefHeight(623);
+		tv.setPrefWidth(252);
+		return tv;
+	}
+	/*
+	 * 
+	 */
+	public TableColumn create_table_column(String name) {
+		TableColumn tc = new TableColumn(name);
+		return tc;
+	}
+	/*
+	 * 
+	 */
+	public TableView create_table_view(ObservableList<TableColumn> cols) {
+		TableView tbv = new TableView();
+		tbv.setPrefHeight(622);
+		tbv.setPrefWidth(749);
+		tbv.setLayoutX(252);
+		
+		for (TableColumn col : cols) {
+			tbv.getColumns().add(col);
+		}
+		
+		return tbv;
 	}
 	
-	public void create_treeview() {
+	public ImageView create_loading() {
+		ImageView img = new ImageView("/resources/Loading.gif");
+		img.setLayoutY(292);
+		img.setLayoutX(112);
+		img.setFitWidth(40);
+		img.setFitHeight(40);
+		return img;
 	}
+
+
+
+
 }

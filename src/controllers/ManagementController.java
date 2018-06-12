@@ -40,13 +40,13 @@ public class ManagementController implements Initializable{
 	private MenuItem menuitem_addProject;
 	@FXML
 	private MenuItem menuitem_addTarget;
-
-	private Stage stage;
-	private TabPane tabpane;
-	private AnchorPane shellmanager;
-	
 	@FXML
 	private ListView<TitledPane> listview_contents;
+	
+	private Stage stage;
+	private TabPane shellmanager;
+	private AnchorPane parent;
+		
 	/*
 	 * [EVENT] When user double click to label, image or hbox
 	 * PARAMETER:
@@ -58,19 +58,17 @@ public class ManagementController implements Initializable{
 		@Override
 		public void handle(MouseEvent event) {
 			if (MouseEvent.MOUSE_CLICKED != null && event.getClickCount() == 2){
-				// Initial tab session of current click
-				ShellView shell_view = new ShellView();
 				String target_id = ((HBox)event.getSource()).getId();
-				Tab tab_session = shell_view.create_tab_session(target_id);
 				// Open windows shell manager if don't exist
 				if (! isOpenWindowShell){
 					isOpenWindowShell = true;
-					tabpane = shell_view.create_tabpane_session(tab_session);
-					shellmanager = new AnchorPane(tabpane);
-					stage = shell_view.create_stage(shellmanager);
-				}else{
-					tabpane.getTabs().add(tab_session);
+					ShellView shell_view = new ShellView();
+					shellmanager = shell_view.create_tabpane_session();
+					parent = new AnchorPane(shellmanager);
+					stage = shell_view.create_stage(parent);
 				}
+				// Set controller as thread
+				new ShellController(target_id, shellmanager).start();
 				stage.show();
 			}
 		}

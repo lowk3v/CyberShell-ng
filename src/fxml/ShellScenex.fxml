@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -8,11 +9,11 @@
 
 <AnchorPane fx:id="anchorpane_shellmanager" prefHeight="650.0" prefWidth="1000.0" style="-fx-border-color: #00918c;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ShellController">
    <children>
-      <TabPane prefHeight="650.0" prefWidth="1000.0" side="LEFT">
+      <TabPane prefHeight="650.0" prefWidth="1000.0">
         <tabs>
           <Tab text="Session 1">
                <content>
-                  <TabPane prefHeight="650.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane prefHeight="650.0" prefWidth="1000.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab text="Explorer">
                         <content>
@@ -27,6 +28,11 @@
                                           <TableColumn maxWidth="150.0" prefWidth="90.0" text="Size" />
                                       </columns>
                                     </TableView>
+                                    <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="107.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../resources/Loading.gif" />
+                                       </image>
+                                    </ImageView>
                                  </children>
                               </AnchorPane>
                         </content>
