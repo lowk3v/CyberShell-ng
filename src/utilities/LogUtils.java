@@ -12,10 +12,10 @@ import java.util.logging.SimpleFormatter;
  * @author Kevinlpd
  *
  */
-public class Logging {
+public class LogUtils {
 	private Logger logger;
 	
-	public Logging(){
+	public LogUtils(){
 		this.logger = Logger.getLogger("ShellLog");
 	    SimpleFormatter formatter = new SimpleFormatter();
 	    FileHandler fh;  

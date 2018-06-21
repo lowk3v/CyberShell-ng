@@ -9,7 +9,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -24,10 +23,10 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import models.TargetModel;
-import utilities.MyScreen;
+import utilities.ScreenUtils;
 
 /**
  * @author Kevinlpd
@@ -65,12 +64,9 @@ public class ShellView {
 		TableColumn cl_type = this.create_table_column("Type", 10.0, 90.0, 150.0);
 		TableColumn cl_size = this.create_table_column("Size", 10.0, 90.0, 150.0);
 		TableView table_view = this.create_table_view(FXCollections.observableArrayList(cl_name, cl_date, cl_type, cl_size));
-		
-		// Icon loading
-		loading = this.create_loading();
-		
+				
 		// Tab
-		AnchorPane anchorpane = this.create_anchorpane(Arrays.asList(loading, current_path, this.tree_view, table_view, title));
+		AnchorPane anchorpane = this.create_anchorpane(Arrays.asList(current_path, this.tree_view, table_view, title));
 		Tab tab_explorer = this.create_tab("Explorer", anchorpane);
 		TabPane sub_tab_pane = this.create_tabpane(Arrays.asList(tab_explorer));
 				
@@ -79,6 +75,7 @@ public class ShellView {
 		Shellmanager.getTabs().add(this.tab_session);
 				
 	}
+	
 	// ========================= ACTIONS ================================ //
 	
 	public void add_item_to_tree_view(TreeItem parrent, List<String> item_list) {
@@ -94,9 +91,6 @@ public class ShellView {
 	
 	public Tab getTab_session() {
 		return tab_session;
-	}
-	public ImageView getLoading() {
-		return loading;
 	}
 	public TreeItem<String> getRoot(){
 		return this.tree_view.getRoot();
@@ -115,8 +109,8 @@ public class ShellView {
 		Stage stage = new Stage();
 		stage.setTitle("SHELL - Cybershell-ng v2");
 		stage.setScene(new Scene(root, 1000, 650));
-		stage.setX(new MyScreen().getPosition().get(0) + 310);
-		stage.setY(new MyScreen().getPosition().get(1));
+		stage.setX(new ScreenUtils().getPosition().get(0) + 310);
+		stage.setY(new ScreenUtils().getPosition().get(1));
 		return stage;
 	}	
 	/*
@@ -143,10 +137,17 @@ public class ShellView {
 	 */
 	public Tab create_tab_session(String target_id, TabPane tp){
 		TargetModel target = new TargetModel().getTargetById(target_id);
-		Tab tab = new Tab(target.getName());
+		Label lb = new Label(target.getName());
+		HBox title = new HBox(this.get_icon_loading(),lb);
+		title.setMargin(lb, new Insets(0, 0, 0, 4));
+		title.setPrefWidth(100);
+		
+		
+		Tab tab = new Tab();
 		tab.setClosable(true);	
 		tab.setId("session-" + target.getId());
 		tab.setContent(tp);
+		tab.setGraphic(title);
 		return tab;
 	}
 	/*
@@ -206,9 +207,9 @@ public class ShellView {
 		root.setExpanded(true);
 				
 		TreeView tv = new TreeView(root);
-		tv.setPrefHeight(623);
+		tv.setPrefHeight(601);
 		tv.setPrefWidth(252);
-		tv.setLayoutY(32);
+		tv.setLayoutY(23);
 		tv.setPadding(new Insets(25, 0, 0, 0));
 		return tv;
 	}
@@ -218,9 +219,9 @@ public class ShellView {
 	public Button create_title() {
 		Button bt = new Button("Disks");
 		bt.setStyle("-fx-font-weight: bold");
-		bt.setPrefWidth(252);
-		bt.setPrefHeight(23);
-		bt.setLayoutY(32);
+		bt.setPrefWidth(253);
+		bt.setPrefHeight(25);
+		bt.setLayoutY(22);
 		return bt;
 	}
 		
@@ -245,10 +246,10 @@ public class ShellView {
 	 */
 	public TableView create_table_view(ObservableList<TableColumn> cols) {
 		TableView tbv = new TableView();
-		tbv.setPrefHeight(622);
-		tbv.setPrefWidth(749);
+		tbv.setPrefHeight(600);
+		tbv.setPrefWidth(719);
 		tbv.setLayoutX(252);
-		tbv.setLayoutY(32);
+		tbv.setLayoutY(22);
 		
 		for (TableColumn col : cols) {
 			tbv.getColumns().add(col);
@@ -262,12 +263,16 @@ public class ShellView {
 	/*
 	 * Create dynamic image loading
 	 */
-	public ImageView create_loading() {
+	public ImageView get_icon_loading() {
 		ImageView img = new ImageView("/resources/Loading.gif");
-		img.setLayoutY(292);
-		img.setLayoutX(112);
-		img.setFitWidth(40);
-		img.setFitHeight(40);
+		img.setFitHeight(16);
+		img.setFitWidth(16);
+		return img;
+	}
+	public ImageView get_icon_living() {
+		ImageView img = new ImageView("/resources/live.png");
+		img.setFitHeight(16);
+		img.setFitWidth(16);
 		return img;
 	}
 	
@@ -281,7 +286,7 @@ public class ShellView {
 		tf.setPromptText("Current Path");
 		tf.setPrefWidth(550);
 		tf.setLayoutX(211);
-		tf.setLayoutY(2);
+		tf.setLayoutY(0);
 		return tf;
 	}
 

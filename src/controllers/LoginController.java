@@ -17,8 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import models.User;
-import utilities.Logging;
-import utilities.Validation;
+import utilities.LogUtils;
+import utilities.ValidUtils;
 import javax.xml.bind.DatatypeConverter;
 
 public class LoginController implements Initializable{
@@ -32,7 +32,7 @@ public class LoginController implements Initializable{
 	@FXML 
 	private Label label_forgetpassword, label_notify;
 	
-	Logger log = new Logging().getLogger();
+	Logger log = new LogUtils().getLogger();
 	User user = new User();
 	
 	@Override
@@ -53,7 +53,7 @@ public class LoginController implements Initializable{
 	
 	@FXML
 	public void login(){		
-		Validation validation = new Validation();
+		ValidUtils validation = new ValidUtils();
 		String username = textfield_username.getText();
 		String	password = null;
 		try {

@@ -14,7 +14,7 @@ import javafx.stage.Screen;
  * @author kevinlpd
  *
  */
-public class MyScreen {
+public class ScreenUtils {
 	
 	public List<Double> getPosition() {
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();

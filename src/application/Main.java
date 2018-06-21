@@ -1,13 +1,16 @@
 package application;
 	
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Map;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import utilities.MyScreen;
-import utilities.PopupUtils;
+import models.Model;
+import utilities.ScreenUtils;
 
 public class Main extends Application {
 	@Override
@@ -18,8 +21,8 @@ public class Main extends Application {
 			primaryStage.setTitle("Login - CyberShell-ng 2.0");	
 			primaryStage.setScene(scene);
 			//primaryStage.setResizable(false);
-			primaryStage.setX(new MyScreen().getPosition().get(0));
-			primaryStage.setY(new MyScreen().getPosition().get(1));
+			primaryStage.setX(new ScreenUtils().getPosition().get(0));
+			primaryStage.setY(new ScreenUtils().getPosition().get(1));
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

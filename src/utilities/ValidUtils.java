@@ -7,7 +7,7 @@ package utilities;
  * @author Kevinlpd
  *
  */
-public class Validation {
+public class ValidUtils {
 	/*
 	 * Check user supplied's data for security
 	 * PARAMETER:
