@@ -6,6 +6,9 @@ package utilities;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * @author kevinlpd
  *
@@ -21,7 +24,6 @@ public class CryptoUtils {
             else if  (c >= 'N' && c <= 'Z') c -= 13;
             result += c;
         }
-        System.out.println(result);
 		return result;
 	}
 	
@@ -47,7 +49,13 @@ public class CryptoUtils {
 		return this.rot13(this.base64_encode(plaintext));
 	}
 	
-	public String decrypt(String cipher) {
-		return this.base64_decode(this.rot13(cipher));
+	public JSONObject decrypt(String cipher) {
+		try {
+			JSONObject obj = new JSONObject(this.base64_decode(this.rot13(cipher)));
+			return obj;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

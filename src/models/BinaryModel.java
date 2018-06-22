@@ -14,10 +14,12 @@ public class BinaryModel extends Model{
 	private Integer id;
 	private String name, binary, program_lang, os;
 
-	public String get_binary(String command) {
+	public String get_binary(String name, String lang, String os) {
 		Map<String, Object> result = this.select_one("Binaries",
 				Arrays.asList(
-						Arrays.asList("name", "=", "'" + command + "'")
+						Arrays.asList("name", "=", "'" + name + "'"),
+						Arrays.asList("program_lang", "=", "'"+ lang +"'"),
+						Arrays.asList("os", "=", "'"+ os +"'")
 				));
 		return (String) result.get("binary");
 	}

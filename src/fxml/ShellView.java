@@ -271,8 +271,8 @@ public class ShellView {
 	}
 	public ImageView get_icon_living() {
 		ImageView img = new ImageView("/resources/live.png");
-		img.setFitHeight(16);
-		img.setFitWidth(16);
+		img.setFitHeight(8);
+		img.setFitWidth(8);
 		return img;
 	}
 	
