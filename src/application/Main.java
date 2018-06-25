@@ -1,5 +1,7 @@
 package application;
 	
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +15,7 @@ public class Main extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/fxml/HomeScene.fxml"));
 			Scene scene = new Scene(root);
-			primaryStage.setTitle("Login - CyberShell-ng 2.0");	
+			primaryStage.setTitle("CyberShell-ng 2.0");	
 			primaryStage.setScene(scene);
 			//primaryStage.setResizable(false);
 			primaryStage.setX(new ScreenUtils().getPosition().get(0));

@@ -6,8 +6,10 @@ package fxml;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.Node;
@@ -22,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -33,9 +36,10 @@ import utilities.ScreenUtils;
  *
  */
 public class ShellView {
-	private Tab tab_session;
-	private TreeView tree_view;
-	private ImageView loading;
+	public Tab tab_session;
+	public TreeView tree_view;
+	public TextField current_path;
+	private TableView table_view;
 	
 	public ShellView() {}
 	
@@ -50,7 +54,7 @@ public class ShellView {
 	 */
 	public ShellView(TargetModel target, TabPane Shellmanager) {
 		// Current path
-		TextField current_path = this.create_current_path();
+		this.current_path = this.create_current_path();
 		
 		// Title
 		Button title = this.create_title();
@@ -63,10 +67,10 @@ public class ShellView {
 		TableColumn cl_date = this.create_table_column("Date Modified", 10.0, 150.0, 150.0);
 		TableColumn cl_type = this.create_table_column("Type", 10.0, 90.0, 150.0);
 		TableColumn cl_size = this.create_table_column("Size", 10.0, 90.0, 150.0);
-		TableView table_view = this.create_table_view(FXCollections.observableArrayList(cl_name, cl_date, cl_type, cl_size));
+		this.table_view = this.create_table_view(FXCollections.observableArrayList(cl_name, cl_date, cl_type, cl_size));
 				
 		// Tab
-		AnchorPane anchorpane = this.create_anchorpane(Arrays.asList(current_path, this.tree_view, table_view, title));
+		AnchorPane anchorpane = this.create_anchorpane(Arrays.asList(this.current_path, this.tree_view, this.table_view, title));
 		Tab tab_explorer = this.create_tab("Explorer", anchorpane);
 		TabPane sub_tab_pane = this.create_tabpane(Arrays.asList(tab_explorer));
 				
@@ -78,20 +82,33 @@ public class ShellView {
 	
 	// ========================= ACTIONS ================================ //
 	
-	public void add_item_to_tree_view(TreeItem parrent, List<String> item_list) {
-		for (String item : item_list) {
-			this.tree_view.getTreeItem(
-				this.tree_view.getTreeItemLevel(parrent)
-			).getChildren().add(new TreeItem<String>(item));
+	public void add_item_to_tree_view(TreeItem<String> parent, List<TreeItem<String>> item_list) {
+		for (TreeItem<String> item : item_list) {
+			item.setGraphic(this.get_icon_dir());	
+			item.setExpanded(true);
+			parent.getChildren().add(item);
 		}
 	}
 	
+	public boolean change_state_to_load_success(){
+		Platform.runLater(()->{
+			HBox hb = (HBox)this.tab_session.getGraphic();
+			hb.getChildren().remove(0);
+			hb.getChildren().add(0, this.get_icon_living());
+		});		
+		return true;
+	}
+	public boolean change_state_to_loading(){
+		Platform.runLater(()->{
+			HBox hb = (HBox)this.tab_session.getGraphic();
+			hb.getChildren().remove(0);
+			hb.getChildren().add(0, this.get_icon_loading());
+		});	
+		return true;
+	}
 	
 	// ======================== GETTERS & SETTERS ======================= //
 	
-	public Tab getTab_session() {
-		return tab_session;
-	}
 	public TreeItem<String> getRoot(){
 		return this.tree_view.getRoot();
 	}
@@ -139,10 +156,8 @@ public class ShellView {
 		TargetModel target = new TargetModel().getTargetById(target_id);
 		Label lb = new Label(target.getName());
 		HBox title = new HBox(this.get_icon_loading(),lb);
-		title.setMargin(lb, new Insets(0, 0, 0, 4));
+		HBox.setMargin(lb, new Insets(0, 0, 0, 4));
 		title.setPrefWidth(100);
-		
-		
 		Tab tab = new Tab();
 		tab.setClosable(true);	
 		tab.setId("session-" + target.getId());
@@ -206,8 +221,8 @@ public class ShellView {
 		}
 		root.setExpanded(true);
 				
-		TreeView tv = new TreeView(root);
-		tv.setPrefHeight(601);
+		TreeView<String> tv = new TreeView<String>(root);
+		tv.setPrefHeight(600);
 		tv.setPrefWidth(252);
 		tv.setLayoutY(23);
 		tv.setPadding(new Insets(25, 0, 0, 0));
@@ -258,11 +273,8 @@ public class ShellView {
 		return tbv;
 	}
 		
-	// ======================== ICON LOADING ============================ //
+	// ======================== ICONS ============================ //
 	
-	/*
-	 * Create dynamic image loading
-	 */
 	public ImageView get_icon_loading() {
 		ImageView img = new ImageView("/resources/Loading.gif");
 		img.setFitHeight(16);
@@ -273,6 +285,12 @@ public class ShellView {
 		ImageView img = new ImageView("/resources/live.png");
 		img.setFitHeight(8);
 		img.setFitWidth(8);
+		return img;
+	}
+	public ImageView get_icon_dir() {
+		ImageView img = new ImageView("/resources/directory.png");
+		img.setFitHeight(16);
+		img.setFitWidth(16);
 		return img;
 	}
 	
@@ -290,7 +308,7 @@ public class ShellView {
 		return tf;
 	}
 
-	// ======================================== //
+	// ============================ HANDLING EVENTS ========================== //
 	
 
 }
